@@ -1,7 +1,7 @@
 # Muteify - Automatic Spotify Ad Muter
 
 ## Demo Video
-[Watch the demo](link here)
+![Watch the demo](Muteify_demo-ezgif.com-video-to-gif-converter.gif)
 
 ## Overview
 Muteify automatically detects and mutes Spotify ads by monitoring the Spotify API and controlling your system audio. When an ad plays, your computer mutes. When music returns, it unmutes automatically.
