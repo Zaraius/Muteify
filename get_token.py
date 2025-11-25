@@ -70,4 +70,4 @@ if __name__ == "__main__":
     print("3. Log in to Spotify")
     print("4. Token will be saved to token.txt")
     
-    app.run(port=8889)
+    app.run(port=8888)

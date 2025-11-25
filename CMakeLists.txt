@@ -1,10 +1,16 @@
+# Require the CMake version matching what is included in the latest LTS version
+# of Ubuntu, which at the time of writing is 22.04.
 cmake_minimum_required(VERSION 3.22)
 
-project(SoftSysProcessesSyscalls
-    VERSION 1.0
-    LANGUAGES C
+# TODO: Define a good project in the line below. If applicable, list other
+# languages in this project managed by CMake.
+project(Muteify
+  VERSION 1.0
+  LANGUAGES C
 )
 
+# Use the latest C standard supported by Clang and LLVM in the latest LTS
+# version of Ubuntu.
 set(CMAKE_C_STANDARD 23)
 
 set(CMAKE_C_FLAGS "-Wall -Wextra")
@@ -24,6 +30,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wunreachable-code")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wunused")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
+# No options are set here because the configuration is set in .clang-tidy
+# instead. If that file is not present, clang-tidy will be of limited help.
 set(CMAKE_C_CLANG_TIDY "clang-tidy")
 
+# Include the source files.
 add_subdirectory(src)

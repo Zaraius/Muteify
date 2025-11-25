@@ -1,15 +1,28 @@
-cmake_minimum_required(VERSION 3.10)
-project(Muteify C)
-
+# Find required packages
 find_package(CURL REQUIRED)
 find_package(cJSON REQUIRED)
 
-add_executable(Muteify
-    main.c
+# Create library for Spotify API functionality (has both .c and .h)
+add_library(spotify_api
     get.c
+    get.h
 )
 
-configure_file(${CMAKE_SOURCE_DIR}/token.txt ${CMAKE_BINARY_DIR}/token.txt COPYONLY)
+# Link external libraries to the spotify_api library
+# PUBLIC because get.h exposes functions that use these libraries
+target_link_libraries(spotify_api PUBLIC CURL::libcurl cjson)
 
-target_link_libraries(Muteify PRIVATE CURL::libcurl cjson)
-target_include_directories(Muteify PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+# Make headers accessible to other targets
+target_include_directories(spotify_api PUBLIC ${CMAKE_SOURCE_DIR})
+
+# Create executable for main program
+add_executable(muteify
+    main.c
+)
+
+# Link the spotify_api library to the executable
+# PRIVATE because main.c uses the library internally
+target_link_libraries(muteify PRIVATE spotify_api)
+
+# Copy token file to build directory
+configure_file(${CMAKE_SOURCE_DIR}/token.txt ${CMAKE_BINARY_DIR}/token.txt COPYONLY)
